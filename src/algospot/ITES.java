@@ -32,16 +32,17 @@ public class ITES {
 		int count=0;
 		for(int i=0;i<N;i++) {
 			 long a = (long) Math.pow(2,32);
-			 signal = (first%10000+1);
-			 queue.add(signal);
+			 signal = (first%10000+1); // 신호 만들기
+			 queue.add(signal); // 만들어진 신호 queue add
 			 sum+=signal;
-			 while(!queue.isEmpty() && sum >=K){
+			 while(!queue.isEmpty() && sum >=K){ // queue 가 비어있지 않거나 sum 이 k보다 크거나 같을때  sum 에서 queue 요소를 빼주면서
+			 									// sum 이 k 와 같아지는 구간을 찾음
 			 	if(sum==K){
 			 		count++;
 				}
 			 	sum-=queue.poll();
 			 }
-			 temp = (long)(first*214013+2531011) % a;
+			 temp = (long)(first*214013+2531011) % a; // 다음 신호를 만들어내기 위한 저장소
 			 first = temp;
 		}
 		return count;
