@@ -15,40 +15,46 @@ public class LongestCommonPrefix {
     public static String longestCommonPrefix(String[] strs) {
 
         int length = strs.length;
-        if(length == 0){
-            return "";
-        }
         if(length == 1){
             return strs[0];
         }
-
-        String first = strs[0];
-        String second = strs[1];
-
-        int min = first.length() < second.length() ? first.length() : second.length();
-
-        StringBuilder result = new StringBuilder();
-
-        for (int i = 0; i < min ; i++) {
-           if(first.charAt(i) == second.charAt(i)){
-               result.append(first.charAt(i));
-           }else{
-               break;
-           }
-
+        int max = 0;
+        for (int i = 0; i < length ; i++) {
+            max = max > strs[i].length() ? max : strs[i].length();
         }
+        String[] tmp = new String[max];
 
-        //2번째부터
-        for (int i = 2; i < length ; i++) {
-            if(!strs[i].startsWith(result.toString())){
-                while(true){
+        for (int i = 0; i < length-1 ; i++) {
 
-                    result.delete(result.length()-1,result.length());
+            String now = strs[i];
+            String next = strs[i+1];
 
-                    if(strs[i].startsWith(result.toString())){
-                        break;
+            boolean flag = false;
+
+            int nowLength = now.length();
+            int nextLength = next.length();
+
+            int min = nowLength < nextLength ? nowLength : nextLength;
+
+            for (int j = 0; j < min; j++) {
+
+                if(now.charAt(j) == next.charAt(j)){
+                    tmp[j] = String.valueOf(now.charAt(j));
+                    flag = true;
+                }else{
+                    if(tmp[j] != null){
+                        tmp[j] = null;
                     }
                 }
+            }
+            if(!flag){
+                return "";
+            }
+        }
+        StringBuilder result = new StringBuilder();
+        for (String s : tmp) {
+            if (s != null) {
+                result.append(s);
             }
         }
         return result.toString();
