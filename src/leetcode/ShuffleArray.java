@@ -4,30 +4,29 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class ShuffleArray {
-    private int[] num;
-    private Random random;
+
     public static void main(String[] args) {
 
-    }
-    public ShuffleArray(int[] nums) {
-        this.num = nums;
-        this.random = new Random();
+        System.out.println(Arrays.toString(shuffle(new int[]{2, 5, 1, 3, 4, 7}, 3)));
+
     }
 
-    /** Resets the array to its original configuration and return it. */
-    public int[] reset() {
-        return num;
-    }
+    public static int[] shuffle(int[] nums, int n) {
 
-    /** Returns a random shuffling of the array. */
-    public int[] shuffle() {
-        int[] shuffle = Arrays.copyOf(num,num.length);
-        for (int i = 0; i < num.length; i++) {
-            int r = i+ random.nextInt(num.length-i);
-            int tmp = shuffle[i];
-            shuffle[i] = shuffle[r];
-            shuffle[r] = tmp;
+        int[] shuffled = new int[nums.length];
+        int left = 0;
+        int right = n;
+        int leftIndex = 0;
+        int rightIndex = 1;
+        for (int i = 0; i < n; i++) {
+            shuffled[leftIndex] = nums[left];
+            shuffled[rightIndex] = nums[right];
+            left++;
+            right++;
+            leftIndex+=2;
+            rightIndex+=2;
         }
-        return shuffle;
+
+        return shuffled;
     }
 }
